@@ -3,9 +3,15 @@ using System.Collections.Generic;
 
 public class GamificationManager : MonoBehaviour
 {
+    public GameObject mapGo;
     public GameObject mainGo;
+    public GameObject profileGo;
+    public GameObject mealsGo;
+    public GameObject sushiGo;
+    public GameObject buyGo;
+    public GameObject thanksGo;
 
-    public enum PageEnum : int { main = 1, map, page1, profile }
+    public enum PageEnum : int { mapPage = 1, mainPage, profilePage, mealsPage, sushiPage, buyPage, thanksPage };
     
     public class Page
     {
@@ -19,26 +25,43 @@ public class GamificationManager : MonoBehaviour
 
     void Start()
     {
-        currentPage.pageEnum = PageEnum.main;
+        currentPage.pageEnum = PageEnum.mapPage;
         currentPage.pageGo = mainGo;
     }
     
     public void OnClick(int page)
     {
+        currentPage.pageGo.SetActive(false);
+
         PageEnum newPage = (PageEnum)page;
         switch (newPage)
         {
-            case PageEnum.main:
-                // currentPage.pageGo = gameobject Main
+            case PageEnum.mapPage:
+                currentPage.pageGo = mapGo;
                 break;
-            case PageEnum.map:
 
+            case PageEnum.mainPage:
+                currentPage.pageGo = mainGo;
                 break;
-            case PageEnum.page1:
 
+            case PageEnum.profilePage:
+                currentPage.pageGo = profileGo;
                 break;
-            case PageEnum.profile:
 
+            case PageEnum.mealsPage:
+                currentPage.pageGo = mealsGo;
+                break;
+
+            case PageEnum.sushiPage:
+                currentPage.pageGo = sushiGo;
+                break;
+
+            case PageEnum.buyPage:
+                currentPage.pageGo = buyGo;
+                break;
+
+            case PageEnum.thanksPage:
+                currentPage.pageGo = thanksGo;
                 break;
         }
         currentPage.pageGo.SetActive(true);
@@ -50,10 +73,10 @@ public class GamificationManager : MonoBehaviour
         if (previousPages.Count > 0)
         {
             currentPage.pageGo.SetActive(false);
-            var newPage = previousPages.Count;
+            var item = previousPages[previousPages.Count - 1];
             previousPages.RemoveAt(previousPages.Count - 1);
 
-            switch (newPage)
+            switch (item)
             {
                 case PageEnum.main:
 
