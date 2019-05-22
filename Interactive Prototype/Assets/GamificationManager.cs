@@ -29,12 +29,13 @@ public class GamificationManager : MonoBehaviour
         currentPage.pageGo = mapGo;
         previousPages.Push(PageEnum.mapPage);
     }
-    
+
     public void OnClick(int page)
     {
         currentPage.pageGo.SetActive(false);
 
         PageEnum newPage = (PageEnum)page;
+        currentPage.pageEnum = newPage;
         switch (newPage)
         {
             case PageEnum.mapPage:
@@ -65,17 +66,21 @@ public class GamificationManager : MonoBehaviour
                 currentPage.pageGo = thanksGo;
                 break;
         }
+
         currentPage.pageGo.SetActive(true);
         previousPages.Push(newPage);
     }
 
+    /*
     public void OnClickBack()
     {
-        if (previousPages.Count > 0)
+        if (previousPages.Count > 0 
+            && currentPage.pageEnum != PageEnum.mapPage)
         {
             currentPage.pageGo.SetActive(false);
-            var item = previousPages.Pop();
 
+            PageEnum item = previousPages.Pop();
+            currentPage.pageEnum = item;
             switch (item)
             {
                 case PageEnum.mapPage:
@@ -109,5 +114,5 @@ public class GamificationManager : MonoBehaviour
 
             currentPage.pageGo.SetActive(true);
         }
-    }
+    }*/
 }
