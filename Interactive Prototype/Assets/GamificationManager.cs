@@ -19,14 +19,15 @@ public class GamificationManager : MonoBehaviour
         public PageEnum pageEnum;
     }
 
-    List<PageEnum> previousPages = new List<PageEnum>();
+    Stack<PageEnum> previousPages = new Stack<PageEnum>();
 
     private Page currentPage = new Page();
 
     void Start()
     {
         currentPage.pageEnum = PageEnum.mapPage;
-        currentPage.pageGo = mainGo;
+        currentPage.pageGo = mapGo;
+        previousPages.Push(PageEnum.mapPage);
     }
     
     public void OnClick(int page)
@@ -65,7 +66,7 @@ public class GamificationManager : MonoBehaviour
                 break;
         }
         currentPage.pageGo.SetActive(true);
-        previousPages.Add(newPage);
+        previousPages.Push(newPage);
     }
 
     public void OnClickBack()
@@ -73,22 +74,36 @@ public class GamificationManager : MonoBehaviour
         if (previousPages.Count > 0)
         {
             currentPage.pageGo.SetActive(false);
-            var item = previousPages[previousPages.Count - 1];
-            previousPages.RemoveAt(previousPages.Count - 1);
+            var item = previousPages.Pop();
 
             switch (item)
             {
-                case PageEnum.main:
-
+                case PageEnum.mapPage:
+                    currentPage.pageGo = mapGo;
                     break;
-                case PageEnum.map:
 
+                case PageEnum.mainPage:
+                    currentPage.pageGo = mainGo;
                     break;
-                case PageEnum.page1:
 
+                case PageEnum.profilePage:
+                    currentPage.pageGo = profileGo;
                     break;
-                case PageEnum.profile:
 
+                case PageEnum.mealsPage:
+                    currentPage.pageGo = mealsGo;
+                    break;
+
+                case PageEnum.sushiPage:
+                    currentPage.pageGo = sushiGo;
+                    break;
+
+                case PageEnum.buyPage:
+                    currentPage.pageGo = buyGo;
+                    break;
+
+                case PageEnum.thanksPage:
+                    currentPage.pageGo = thanksGo;
                     break;
             }
 
