@@ -25,8 +25,8 @@ public class GamificationManager : MonoBehaviour
 
     void Start()
     {
-        currentPage.pageGo = mapGo;
-        currentPage.pageEnum = PageEnum.mapPage;
+        currentPage.pageGo = mainGo;
+        currentPage.pageEnum = PageEnum.mainPage;
     }
 
     public void OnClick(int page)
@@ -70,8 +70,7 @@ public class GamificationManager : MonoBehaviour
 
     public void OnClickBack()
     {
-        if (previousPages.Count > 0 
-            && currentPage.pageEnum != PageEnum.mapPage)
+        if (previousPages.Count > 0)
         {
             currentPage.pageGo.SetActive(false);
             PageEnum item = previousPages.Pop();
