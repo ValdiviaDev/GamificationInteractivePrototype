@@ -25,15 +25,14 @@ public class GamificationManager : MonoBehaviour
 
     void Start()
     {
-        currentPage.pageEnum = PageEnum.mapPage;
         currentPage.pageGo = mapGo;
-        previousPages.Push(PageEnum.mapPage);
+        currentPage.pageEnum = PageEnum.mapPage;
     }
 
     public void OnClick(int page)
     {
         currentPage.pageGo.SetActive(false);
-
+        previousPages.Push(currentPage.pageEnum);
         PageEnum newPage = (PageEnum)page;
         currentPage.pageEnum = newPage;
         switch (newPage)
@@ -63,26 +62,23 @@ public class GamificationManager : MonoBehaviour
                 break;
 
             case PageEnum.thanksPage:
-                currentPage.pageGo = thanksGo;
+                currentPage.pageGo = thanksGo; ;
                 break;
         }
-
         currentPage.pageGo.SetActive(true);
-        previousPages.Push(newPage);
     }
 
-    /*
     public void OnClickBack()
     {
         if (previousPages.Count > 0 
             && currentPage.pageEnum != PageEnum.mapPage)
         {
             currentPage.pageGo.SetActive(false);
-
             PageEnum item = previousPages.Pop();
             currentPage.pageEnum = item;
             switch (item)
             {
+
                 case PageEnum.mapPage:
                     currentPage.pageGo = mapGo;
                     break;
@@ -111,8 +107,15 @@ public class GamificationManager : MonoBehaviour
                     currentPage.pageGo = thanksGo;
                     break;
             }
-
             currentPage.pageGo.SetActive(true);
         }
-    }*/
+    }
+
+    void LogQueue()
+    {
+        Debug.Log("Stack:\n");
+        foreach (PageEnum page in previousPages)
+            Debug.Log(page.ToString());
+        Debug.Log("\n");
+    }
 }
